@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
-
+using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Attributes;
 namespace AoC
 {
-    class AoCDay1
+    public class AoCDay2
     {
-        static void Main()
+        String one = "";
+        [Benchmark]
+        public void part2()
         {
             string[] lines = System.IO.File.ReadAllLines
             (@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
             int[] scores = new int[10];
-            int i = 0;
             foreach (string line in lines)
             {
 
@@ -69,5 +71,15 @@ namespace AoC
             Console.WriteLine("Press any key to exit.");
             System.Console.ReadKey();
         }
+        
     }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+          var summary = BenchmarkRunner.Run<AoCDay2>();
+        }
+    }
+    
 }
