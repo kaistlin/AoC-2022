@@ -65,7 +65,7 @@ namespace AoC
                 n += scores[j] * j;
             }
 
-             Console.WriteLine("The total score is " + n + " points");
+          //   Console.WriteLine("The total score is " + n + " points");
 
         }
         [Benchmark]
@@ -122,7 +122,7 @@ namespace AoC
                 n += scores[j] * j;
             }
 
-             Console.WriteLine("The total score is " + n + " points");
+         //    Console.WriteLine("The total score is " + n + " points");
 
         }
         [Benchmark]
@@ -157,10 +157,31 @@ namespace AoC
                 n += scores[j] * j;
             }
 
-             Console.WriteLine("The total score is " + n + " points");
+            // Console.WriteLine("The total score is " + n + " points");
             
         }
-
+        public const byte L = 0, D = 3, W = 6;
+        ReadOnlySpan<byte> SCORE_CHANGE => new byte[]
+        {
+        //L   D    W  <- My result
+        3+L, 1+D, 2+W, 0, // They play rock
+        1+L, 2+D, 3+W, 0, // They play paper
+        2+L, 3+D, 1+W, 0, // They play scissors
+        };
+        [Benchmark]
+        public void caisMethod()
+        {
+            byte[] Input = File.ReadAllBytes(@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
+            int Score = 0;
+            for (int Index = 0; Index < Input.Length; Index += 5)
+            {
+                int TheirMove = Input[Index] - 'A';
+                int TurnResult = Input[Index + 2] - 'X';
+                //int scoreChange = (TheirMove << 2 | TurnResult);
+                Score += SCORE_CHANGE[(TheirMove << 2) | TurnResult];
+            }
+            //Console.Write(Score);
+        }
     }
 
     class Program
@@ -169,9 +190,10 @@ namespace AoC
         {
               var summary = BenchmarkRunner.Run<AoCDay2>();
             // Console.WriteLine(summary);
-            //AoCDay2 day2 = new AoCDay2();
-            //day2.linq();
+           // AoCDay2 day2 = new AoCDay2();
+            //day2.caisMethod();
         }
     }
     
 }
+
