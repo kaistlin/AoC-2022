@@ -1,10 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Characteristics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AoC
 {
@@ -40,11 +34,6 @@ namespace AoC
                 i++;
             }
          //   Console.WriteLine(sum);
-        }
-
-        public void run2()
-        {
-
         }
     }
 }
