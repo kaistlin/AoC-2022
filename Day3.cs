@@ -5,7 +5,7 @@ namespace AoC
     public class AoCDay3
     {
         [Benchmark]
-        public void run()
+        public void looseArrays()
         {
             int sum = 0;
             char[]? prevline1 = null;
@@ -14,11 +14,11 @@ namespace AoC
             int i = 0;
             foreach (string line in System.IO.File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\day3input.txt"))
             {
-                if (i%3 == 0)
+                if (i % 3 == 0)
                     prevline1 = line.ToCharArray();
-                else if (i%3 == 1)
+                else if (i % 3 == 1)
                     prevline2 = line.ToCharArray();
-                else if (i%3 == 2)
+                else if (i % 3 == 2)
                 {
                     prevline3 = line.ToCharArray();
                     char unique = prevline1.Intersect(prevline2).Intersect(prevline3).ToArray()[0];
@@ -29,11 +29,42 @@ namespace AoC
                     else if (char.IsLower(unique))
                     {
                         sum += System.Convert.ToInt32(unique) - 96;
-                    }   
+                    }
                 }
                 i++;
             }
-         //   Console.WriteLine(sum);
+            //   Console.WriteLine(sum);
+        }
+        [Benchmark]
+        public void staticArrays()
+        {
+            int sum = 0;
+            char[] prevline1 = new char[100];
+            char[] prevline2 = new char[100];
+            char[] prevline3 = new char[100];
+            int i = 0;
+            foreach (string line in System.IO.File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\day3input.txt"))
+            {
+                if (i % 3 == 0)
+                    prevline1 = line.ToCharArray();
+                else if (i % 3 == 1)
+                    prevline2 = line.ToCharArray();
+                else if (i % 3 == 2)
+                {
+                    prevline3 = line.ToCharArray();
+                    char unique = prevline1.Intersect(prevline2).Intersect(prevline3).ToArray()[0];
+                    if (char.IsUpper(unique))
+                    {
+                        sum += System.Convert.ToInt32(unique) - 38;
+                    }
+                    else if (char.IsLower(unique))
+                    {
+                        sum += System.Convert.ToInt32(unique) - 96;
+                    }
+                }
+                i++;
+            }
+            //   Console.WriteLine(sum);
         }
     }
 }

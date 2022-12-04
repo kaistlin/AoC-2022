@@ -223,12 +223,12 @@ namespace AoC
     {
         static void Main(string[] args)
         {
-              var summary = BenchmarkRunner.Run<AoCDay3>();
+             // var summary = BenchmarkRunner.Run<AoCDay3>();
             // Console.WriteLine(summary);
             //AoCDay2 day2 = new AoCDay2();
             
-            //AoCDay3 test = new AoCDay3();
-            //test.run();
+            AoCDay4 test = new AoCDay4();
+            test.part2();
         }
     }
     
