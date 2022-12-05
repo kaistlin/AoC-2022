@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 
-namespace AoC
+namespace AoC_Day_2.src
 {
     public class AoCDay3
     {
@@ -12,7 +12,7 @@ namespace AoC
             char[]? prevline2 = null;
             char[]? prevline3 = null;
             int i = 0;
-            foreach (string line in System.IO.File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\day3input.txt"))
+            foreach (string line in File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day3input.txt"))
             {
                 if (i % 3 == 0)
                     prevline1 = line.ToCharArray();
@@ -24,11 +24,11 @@ namespace AoC
                     char unique = prevline1.Intersect(prevline2).Intersect(prevline3).ToArray()[0];
                     if (char.IsUpper(unique))
                     {
-                        sum += System.Convert.ToInt32(unique) - 38;
+                        sum += Convert.ToInt32(unique) - 38;
                     }
                     else if (char.IsLower(unique))
                     {
-                        sum += System.Convert.ToInt32(unique) - 96;
+                        sum += Convert.ToInt32(unique) - 96;
                     }
                 }
                 i++;
@@ -43,7 +43,7 @@ namespace AoC
             char[] prevline2 = new char[100];
             char[] prevline3 = new char[100];
             int i = 0;
-            foreach (string line in System.IO.File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\day3input.txt"))
+            foreach (string line in File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day3input.txt"))
             {
                 if (i % 3 == 0)
                     prevline1 = line.ToCharArray();
@@ -55,11 +55,11 @@ namespace AoC
                     char unique = prevline1.Intersect(prevline2).Intersect(prevline3).ToArray()[0];
                     if (char.IsUpper(unique))
                     {
-                        sum += System.Convert.ToInt32(unique) - 38;
+                        sum += Convert.ToInt32(unique) - 38;
                     }
                     else if (char.IsLower(unique))
                     {
-                        sum += System.Convert.ToInt32(unique) - 96;
+                        sum += Convert.ToInt32(unique) - 96;
                     }
                 }
                 i++;

@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Attributes;
-namespace AoC
+
+namespace AoC_Day_2.src
 {
     [MemoryDiagnoser]
     public class AoCDay2
@@ -8,7 +9,7 @@ namespace AoC
         [Benchmark]
         public void ifsonly()
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
+            string[] lines = File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day2input.txt");
             int[] scores = new int[10];
             foreach (string line in lines)
             {
@@ -59,13 +60,13 @@ namespace AoC
                 n += scores[j] * j;
             }
 
-          //   Console.WriteLine("The total score is " + n + " points");
+            //   Console.WriteLine("The total score is " + n + " points");
 
         }
         [Benchmark]
         public void ifElse()
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
+            string[] lines = File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day2input.txt");
             int[] scores = new int[10];
             foreach (string line in lines)
             {
@@ -123,7 +124,7 @@ namespace AoC
         public void simplerIfElse()
         {
             int score = 0;
-            String[] lines = System.IO.File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
+            string[] lines = File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day2input.txt");
             foreach (string line in lines)
             {
 
@@ -153,11 +154,11 @@ namespace AoC
                 }
                 else if (line == "C Y")
                 {
-                    score +=6;
+                    score += 6;
                 }
                 else if (line == "C X")
                 {
-                    score +=2;
+                    score += 2;
                 }
                 if (line == "C Z")
                 {
@@ -167,33 +168,33 @@ namespace AoC
             }
             //Console.WriteLine("\t" + "Done adding scores" + "\t");
 
-          
 
-              //  Console.WriteLine("The total score is " + score + " points");
+
+            //  Console.WriteLine("The total score is " + score + " points");
 
         }
         [Benchmark]
         public void linq()
         {
-            string[] games = System.IO.File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
+            string[] games = File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day2input.txt");
             int[] scores = new int[10];
             int n = 0;
-            n += games.Count(round => round == "A Y")*4;
-            n += games.Count(round => round == "A X")*3;
-            n += games.Count(round => round == "A Z")*8;
-            n += games.Count(round => round == "B Y")*5;
-            n += games.Count(round => round == "B X")*1;
-            n += games.Count(round => round == "B Z")*9;
-            n += games.Count(round => round == "C Y")*6;
-            n += games.Count(round => round == "C X")*2;
-            n += games.Count(round => round == "C Z")*7;
-          
+            n += games.Count(round => round == "A Y") * 4;
+            n += games.Count(round => round == "A X") * 3;
+            n += games.Count(round => round == "A Z") * 8;
+            n += games.Count(round => round == "B Y") * 5;
+            n += games.Count(round => round == "B X") * 1;
+            n += games.Count(round => round == "B Z") * 9;
+            n += games.Count(round => round == "C Y") * 6;
+            n += games.Count(round => round == "C X") * 2;
+            n += games.Count(round => round == "C Z") * 7;
+
             //Console.WriteLine("\t" + "Done adding scores" + "\t");
 
-            
+
 
             // Console.WriteLine("The total score is " + n + " points");
-            
+
         }
         public const byte L = 0, D = 3, W = 6;
         ReadOnlySpan<byte> SCORE_CHANGE => new byte[]
@@ -206,14 +207,14 @@ namespace AoC
         [Benchmark]
         public void caisMethod()
         {
-            byte[] Input = File.ReadAllBytes(@"C:\Users\kaist\source\repos\AoC Day 2\day2input.txt");
+            byte[] Input = File.ReadAllBytes(@"C:\Users\kaist\source\repos\AoC Day 2\input\day2input.txt");
             int Score = 0;
             for (int Index = 0; Index < Input.Length; Index += 5)
             {
                 int TheirMove = Input[Index] - 'A';
                 int TurnResult = Input[Index + 2] - 'X';
                 //int scoreChange = (TheirMove << 2 | TurnResult);
-                Score += SCORE_CHANGE[(TheirMove << 2) | TurnResult];
+                Score += SCORE_CHANGE[TheirMove << 2 | TurnResult];
             }
             //Console.Write(Score);
         }
@@ -223,14 +224,14 @@ namespace AoC
     {
         static void Main(string[] args)
         {
-             // var summary = BenchmarkRunner.Run<AoCDay3>();
+            var summary = BenchmarkRunner.Run<AoCDay2>();
             // Console.WriteLine(summary);
             //AoCDay2 day2 = new AoCDay2();
-            
-            AoCDay4 test = new AoCDay4();
-            test.part2();
+
+            //AoCDay5 test = new AoCDay5();
+            //test.part1();
         }
     }
-    
+
 }
 
