@@ -3,6 +3,7 @@ using Dia2Lib;
 using System;
 using System.Collections;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,15 +37,17 @@ namespace AoC_Day_2.src
                 {
                     //get # of stacks
                     stackCount = line.ToCharArray()[line.Length - 2] - '0';
+                    //go through input in reverse order
                     for (int m = k - 1; m >= 0; m--)
                     {
+
                         char[] lineChar = board[m].ToCharArray();
                         for (int j = stackCount - 1; j >= 0; j--)
                         {
 
                             char test = lineChar[j * 4 + 1];
                             if (test != ' ')
-                                stacks[j].Push(lineChar[j * 4 + 1]);
+                                stacks[j + 1].Push(lineChar[j * 4 + 1]);
                         }
                     }
                     boardFinished = true;
@@ -67,9 +70,12 @@ namespace AoC_Day_2.src
 
                 }
             }
-
-            //Console.WriteLine("Done Moving!");
-
+            string output = "";
+            for (int i=1; i <= stackCount; i++)
+            {
+                output += stacks[i].Pop() + " ";
+            }
+            Console.WriteLine(output);
         }
         [Benchmark]
         public void part2()
@@ -81,20 +87,27 @@ namespace AoC_Day_2.src
             }
             string[] board = new string[10];
             int k = 0;
+            var stackCount = 0;
             bool boardFinished = false;
             foreach (string line in File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day5input.txt"))
             {
-                if (k < 10)
+                //check we are still getting board input and copy string to array
+                if (!boardFinished && !line.StartsWith(" 1"))
                 {
                     board[k] = line;
                     k++;
                 }
-                if (k == 10)
+                //check if we've reached the end of the board input
+                if (!boardFinished && line.StartsWith(" 1 "))
                 {
-                    for (int m = 7; m >= 0; m--)
+                    //get # of stacks
+                    stackCount = line.ToCharArray()[line.Length - 2] - '0';
+                    //go through input in reverse order
+                    for (int m = k - 1; m >= 0; m--)
                     {
+
                         char[] lineChar = board[m].ToCharArray();
-                        for (int j = 8; j >= 0; j--)
+                        for (int j = stackCount - 1; j >= 0; j--)
                         {
 
                             char test = lineChar[j * 4 + 1];
@@ -103,9 +116,8 @@ namespace AoC_Day_2.src
                         }
                     }
                     boardFinished = true;
-                    k++;
+                    continue;
                 }
-
                 if (boardFinished)
                 {
                     if (line != "")
@@ -125,10 +137,12 @@ namespace AoC_Day_2.src
 
                 }
             }
-
-            //Console.WriteLine("Done Moving!");
-
+            string output = "";
+            for (int i = 1; i <= stackCount; i++)
+            {
+                output += stacks[i].Pop() + " ";
+            }
+            Console.WriteLine(output);
         }
-
     }
 }

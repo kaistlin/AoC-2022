@@ -230,6 +230,7 @@ namespace AoC_Day_2.src
 
             AoCDay5 test = new AoCDay5();
             test.part1();
+            test.part2();
         }
     }
 
