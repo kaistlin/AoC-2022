@@ -1,4 +1,5 @@
-﻿using Perfolizer.Mathematics.Thresholds;
+﻿using BenchmarkDotNet.Attributes;
+using Perfolizer.Mathematics.Thresholds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,14 @@ namespace AoC
     }
     public class AoCDay4
     {
+        [Benchmark]
         public void part1()
         {
             string[] pairs;
             string[] pair1;
             string[] pair2;
             int count = 0; ;
-            foreach (string line in System.IO.File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\day4sample.txt"))
+            foreach (string line in System.IO.File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\day4input.txt"))
             {
                 pairs = line.Split(',');
                 pair1 = pairs[0].Split('-');
@@ -53,9 +55,10 @@ namespace AoC
                 }
 
             }
-            Console.WriteLine("Total pairs is " + count);
+           // Console.WriteLine("Total pairs is " + count);
 
         }
+        [Benchmark]
         public void part2()
         {
             string[] pairs;
@@ -73,7 +76,7 @@ namespace AoC
                 else if (System.Convert.ToInt32(pair2[0]) >= System.Convert.ToInt32(pair1[0]) && System.Convert.ToInt32(pair2[0]) <= System.Convert.ToInt32(pair1[1]))
                     count++;
             }
-            Console.WriteLine("Total dupes is " + count);
+        //    Console.WriteLine("Total dupes is " + count);
 
         }
     }

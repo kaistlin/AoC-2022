@@ -218,17 +218,17 @@ namespace AoC
             //Console.Write(Score);
         }
     }
-
+    
     class Program
     {
         static void Main(string[] args)
         {
-             // var summary = BenchmarkRunner.Run<AoCDay3>();
+            //var summary = BenchmarkRunner.Run<AoCDay4>();
             // Console.WriteLine(summary);
             //AoCDay2 day2 = new AoCDay2();
             
-            AoCDay4 test = new AoCDay4();
-            test.part2();
+            AoCDay5 test = new AoCDay5();
+            test.part1();
         }
     }
     
