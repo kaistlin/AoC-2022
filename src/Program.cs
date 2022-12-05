@@ -219,7 +219,7 @@ namespace AoC_Day_2.src
             //Console.Write(Score);
         }
     }
-
+    
     class Program
     {
         static void Main(string[] args)
