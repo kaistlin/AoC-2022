@@ -74,23 +74,24 @@ namespace AoC_Day_2.src
         [Benchmark]
         public void part2Hash()
         {
-            HashSet<byte> uniqueHash = new HashSet<byte>();
+            HashSet<byte> uniqueHash = new HashSet<byte>(14);
             byte[] test = new byte[14];
-            bool unique;
+            bool unique =false;
             int i = 0;
             for (int j = 0; j < 13; j++)
                 test[j] = signal[i++];
             do
             {
-            tryAgain:
                 unique = true;
                 uniqueHash.Clear();
                 test[i % 14] = signal[i++];
 
                 foreach (byte b in test)
-                    if (unique)
-                    unique = uniqueHash.Add(b);
-                    else { goto tryAgain; }
+                    if (uniqueHash.Add(b))
+                        continue;
+                    else {
+                        unique = false;
+                        break; }
             } while (!unique);
             //Console.WriteLine(i);
 
