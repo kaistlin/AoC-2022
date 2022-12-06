@@ -224,16 +224,16 @@ namespace AoC_Day_2.src
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<AoCDay4>();
+            //var summary = BenchmarkRunner.Run<AoCDay4>();
             // Console.WriteLine(summary);
             //AoCDay2 day2 = new AoCDay2();
-/**
-            AoCDay4 test = new AoCDay4();
+
+            Day6 test = new();
 //            test.caisMethodPart1();
 //            test.caisMethodPart2();
-            test.part2Optimized();
+           // test.part1();
             test.part2();
-**/
+
         }
     }
 
