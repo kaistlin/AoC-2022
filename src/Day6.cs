@@ -17,15 +17,15 @@ namespace AoC_Day_2.src
         public void part1()
         {
             byte[] test1 = new byte[4];
-            int i = 0;
-            while (signal[i] == signal[i + 1] ||
-                     signal[i] == signal[i + 2] ||
-                     signal[i] == signal[i + 3] ||
-                     signal[i + 1] == signal[i + 2]||
-                     signal[i + 1] == signal[i + 3]||
-                     signal[i + 2] == signal[i + 3]) { i++; }
+            int i = 3;
+            while (signal[i] == signal[i - 1] ||
+                     signal[i] == signal[i - 2] ||
+                     signal[i] == signal[i - 3] ||
+                     signal[i - 1] == signal[i - 2]||
+                     signal[i - 1] == signal[i - 3]||
+                     signal[i - 2] == signal[i - 3]) { i++; }
 
-           // Console.Write(i + 4);
+           // Console.WriteLine(i+1);
         }
         [Benchmark]
         public void part1BooleanAddition()
@@ -39,7 +39,7 @@ namespace AoC_Day_2.src
                     ((signal[i + 1] == signal[i + 3]) ? 1 : 0) +
                     ((signal[i + 2] == signal[i + 3]) ? 1 : 0)) > 0) {i++; }
 
-         //  Console.Write(i + 4);
+           //Console.WriteLine(i + 4);
 
         }
         [Benchmark]
@@ -47,30 +47,54 @@ namespace AoC_Day_2.src
         {
             byte[] test1 = new byte[4];
             int i = 0;
+            test1[i] = signal[i++];
+            test1[i] = signal[i++];
+            test1[i] = signal[i++];
             do
             {
                 test1[i%4] = signal[i++];
             } while (test1.Distinct().Count() != test1.Length);
 
-              // Console.Write(i + 3);
+               //Console.WriteLine(i);
         }
         [Benchmark]
         public void part2()
         {
             byte[] test = new byte[14];
             int i = 0;
+            for (int j = 0; j < 13; j++)
+                test[j] = signal[i++];
             do
             {
                 test[i % 14] = signal[i++];
-            }while(test.Distinct().Count() != test.Length);
-          //  Console.Write(i);
+            } while(test.Distinct().Count() != test.Length);
+            //Console.WriteLine(i);
         
         }
+        [Benchmark]
         public void part2Hash()
         {
+            HashSet<byte> uniqueHash = new HashSet<byte>();
+            byte[] test = new byte[14];
+            bool unique;
+            int i = 0;
+            for (int j = 0; j < 13; j++)
+                test[j] = signal[i++];
+            do
+            {
+            tryAgain:
+                unique = true;
+                uniqueHash.Clear();
+                test[i % 14] = signal[i++];
+
+                foreach (byte b in test)
+                    if (unique)
+                    unique = uniqueHash.Add(b);
+                    else { goto tryAgain; }
+            } while (!unique);
+            //Console.WriteLine(i);
 
         }
-
         
     }
 }
