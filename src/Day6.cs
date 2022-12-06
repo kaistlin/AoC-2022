@@ -101,7 +101,7 @@ namespace AoC_Day_2.src
         [Benchmark]
         public void part2HashMap()
         {
-            Dictionary<byte,byte?> uniqueHash = new Dictionary<byte,byte?>(14);
+            Dictionary<byte, byte?> uniqueHash = new Dictionary<byte, byte?>(14);
             byte[] test = new byte[14];
             bool unique = false;
             int i = 0;
@@ -114,13 +114,45 @@ namespace AoC_Day_2.src
                 test[i % 14] = signal[i++];
 
                 foreach (byte b in test)
-                    if (uniqueHash.TryAdd(b,null))
+                    if (uniqueHash.TryAdd(b, null))
                         continue;
                     else
                     {
                         unique = false;
                         break;
                     }
+            } while (!unique);
+            //Console.WriteLine(i);
+
+        }
+        [Benchmark]
+        public void part2HashMapDiffCheck()
+        {
+            Dictionary<byte, byte?> uniqueHash = new Dictionary<byte, byte?>(14);
+            byte[] test = new byte[14];
+            bool unique = false;
+            int i = 0;
+            for (int j = 0; j < 13; j++)
+                test[j] = signal[i++];
+            do
+            {
+                unique = true; 
+                uniqueHash.Clear();
+                test[i % 14] = signal[i++];
+
+                foreach (byte b in test)
+                    if (uniqueHash.ContainsKey(b))
+                    {
+                        unique = false;
+                        break;
+                    }
+                    else
+                    {
+                        uniqueHash.Add(b, null);
+                    }
+                    
+                        
+                       
             } while (!unique);
             //Console.WriteLine(i);
 
