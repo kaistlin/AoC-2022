@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,45 +9,34 @@ using System.Threading.Tasks;
 namespace AoC_Day_2.src
 {
     [MemoryDiagnoser]
-    public class Day6
+    public class AoCDay6
     {
-        string inputPath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day6input.txt";
-        string samplePath = "@C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day6sample.txt";
-        int i = 14;
-        string[] signalString = File.ReadAllLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day6input.txt");
+        
         byte[] signal = File.ReadAllBytes(@"C:\Users\kaist\source\repos\AoC Day 2\input\day6input.txt");
         byte[] test = new byte[14];
+        int i;
         [Benchmark]
         public void part1()
-        {    do
+        {
+            i = -1;
+            do
                 {
-                    if (signal[i] != signal[i + 1] && signal[i] != signal[i + 2] && signal[i] != signal[i + 3] && signal[i + 1] != signal[i + 2] && signal[i + 1] != signal[i + 3] && signal[i + 2] != signal[i + 3])
-                    {
-                        goto UniqueFound;
-                    }
                     i++;
-                } while (i != signal.Length);
+                } while (signal[i] == signal[i + 1] || signal[i] == signal[i + 2] || signal[i] == signal[i + 3] || signal[i + 1] == signal[i + 2] || signal[i + 1] == signal[i + 3] || signal[i + 2] == signal[i + 3]);
 
-            UniqueFound:
-                Console.Write(i + 4);
+        
+            //   Console.Write(i + 4);
 
            
         }
         [Benchmark]
-        public void part2(){ 
-           for(int j = 0; j < 14; j++)
-            {
-                test[j] = signal[j];
-            }
+        public void part2(){
+            i = 0;
             do
             {
-                if (test.Distinct().Count() == test.Length)
-                    goto uniqueFourteenFound;
                 test[i % 14] = signal[i++];
-            }while(i != signal.Length);
-
-        uniqueFourteenFound:
-            Console.Write(i);
+            }while(test.Distinct().Count() != test.Length);
+          //  Console.Write(i);
         
         }
         
