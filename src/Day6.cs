@@ -15,19 +15,28 @@ namespace AoC_Day_2.src
         byte[] signal = File.ReadAllBytes(@"C:\Users\kaist\source\repos\AoC Day 2\input\day6input.txt");
         byte[] test = new byte[14];
         int i;
+        byte[] test1;
         [Benchmark]
         public void part1()
         {
             i = -1;
             do
-                {
-                    i++;
-                } while (signal[i] == signal[i + 1] || signal[i] == signal[i + 2] || signal[i] == signal[i + 3] || signal[i + 1] == signal[i + 2] || signal[i + 1] == signal[i + 3] || signal[i + 2] == signal[i + 3]);
+            {
+                i++;
+            } while (signal[i] == signal[i + 1] || signal[i] == signal[i + 2] || signal[i] == signal[i + 3] || signal[i + 1] == signal[i + 2] || signal[i + 1] == signal[i + 3] || signal[i + 2] == signal[i + 3]);
 
-        
             //   Console.Write(i + 4);
+        }
+        [Benchmark]
+        public void part1Alternative()
+        {
+            i = 0;
+            do
+            {
+                test1 = signal[i..((i++)+4)];
+            } while (test1.Distinct().Count() != test1.Length);
 
-           
+               Console.Write(i + 3);
         }
         [Benchmark]
         public void part2(){

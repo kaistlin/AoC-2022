@@ -228,10 +228,10 @@ namespace AoC_Day_2.src
             // Console.WriteLine(summary);
             //AoCDay2 day2 = new AoCDay2();
 
- //           AoCDay6 test = new();
+//            AoCDay6 test = new();
 //            test.caisMethodPart1();
 //            test.caisMethodPart2();
-//            test.part1();
+   //         test.part1Alternative();
  //           test.part2();
 
         }
