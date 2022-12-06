@@ -72,11 +72,11 @@ namespace AoC_Day_2.src
         
         }
         [Benchmark]
-        public void part2Hash()
+        public void part2HashSet()
         {
             HashSet<byte> uniqueHash = new HashSet<byte>(14);
             byte[] test = new byte[14];
-            bool unique =false;
+            bool unique = false;
             int i = 0;
             for (int j = 0; j < 13; j++)
                 test[j] = signal[i++];
@@ -89,13 +89,42 @@ namespace AoC_Day_2.src
                 foreach (byte b in test)
                     if (uniqueHash.Add(b))
                         continue;
-                    else {
+                    else
+                    {
                         unique = false;
-                        break; }
+                        break;
+                    }
             } while (!unique);
             //Console.WriteLine(i);
 
         }
-        
+        [Benchmark]
+        public void part2HashMap()
+        {
+            Dictionary<byte,byte?> uniqueHash = new Dictionary<byte,byte?>(14);
+            byte[] test = new byte[14];
+            bool unique = false;
+            int i = 0;
+            for (int j = 0; j < 13; j++)
+                test[j] = signal[i++];
+            do
+            {
+                unique = true;
+                uniqueHash.Clear();
+                test[i % 14] = signal[i++];
+
+                foreach (byte b in test)
+                    if (uniqueHash.TryAdd(b,null))
+                        continue;
+                    else
+                    {
+                        unique = false;
+                        break;
+                    }
+            } while (!unique);
+            //Console.WriteLine(i);
+
+        }
+
     }
 }

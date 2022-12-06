@@ -225,7 +225,7 @@ namespace AoC_Day_2.src
     {
         static void Main(string[] args)
             {
-           // var summary = BenchmarkRunner.Run<AoCDay6>();
+         //   var summary = BenchmarkRunner.Run<AoCDay6>();
         //  Console.WriteLine(summary);
         //  AoCDay2 day2 = new AoCDay2();
             AoCDay6 test = new();
@@ -235,7 +235,8 @@ namespace AoC_Day_2.src
             test.part1();
             test.part1BooleanAddition();
             test.part2();
-            test.part2Hash();
+            test.part2HashSet();
+            test.part2HashMap();
 
         }
     }
