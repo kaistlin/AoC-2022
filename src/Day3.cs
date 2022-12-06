@@ -2,8 +2,11 @@
 
 namespace AoC_Day_2.src
 {
+    [MemoryDiagnoser]
     public class AoCDay3
     {
+        private const string inputFile = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day3input.txt";
+        private readonly string[] inputStrings = File.ReadAllLines(inputFile);
         [Benchmark]
         public void looseArrays()
         {
@@ -12,7 +15,7 @@ namespace AoC_Day_2.src
             char[]? prevline2 = null;
             char[]? prevline3 = null;
             int i = 0;
-            foreach (string line in File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day3input.txt"))
+            foreach (string line in inputStrings)
             {
                 if (i % 3 == 0)
                     prevline1 = line.ToCharArray();
@@ -43,7 +46,7 @@ namespace AoC_Day_2.src
             char[] prevline2 = new char[100];
             char[] prevline3 = new char[100];
             int i = 0;
-            foreach (string line in File.ReadLines(@"C:\Users\kaist\source\repos\AoC Day 2\input\day3input.txt"))
+            foreach (string line in inputStrings)
             {
                 if (i % 3 == 0)
                     prevline1 = line.ToCharArray();
