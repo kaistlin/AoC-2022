@@ -77,18 +77,15 @@ namespace AoC_Day_2.src
         public void addFileSizes(FileObject FileToCheck)
         {
             FileObject currentFile = FileToCheck;
-            //base case for recursion is finding a file
+            //if current node is a director, branch out to everything in it, then add current file sizes to parent folder size
             if (currentFile.dir)
             {
                 foreach (FileObject file in currentFile.contents.Values)
                     addFileSizes(file);
-                
                 if(currentFile.name!="ROOT")
-                    currentFile.parent.size+=currentFile.size;
-                
-                sizes.Add(currentFile.size);
-                
+                    currentFile.parent.size+=currentFile.size; 
             }
+            //otherwise,base case for recursion is finding a file so add the file size to the parent node size 
             else
             {
                 currentFile.parent.size += currentFile.size;
@@ -99,28 +96,17 @@ namespace AoC_Day_2.src
             FileObject CurrentFolder = CurrentFolderObject;
             do
             {
-
-                /**if (FileReadIndex == RawInput.Length)
-                {
-                    Console.WriteLine("Traversal Done");
-                }**/
                 string[] command = RawInput[FileReadIndex++].Split(' ');
-
-                //if it's a c command
+                //check if it's a command
                 if (Char.Parse(command[0]) == '$')
                 {
-                    //if change directory
+                    //if so, check if change directory
                     if (command[1] == "cd")
                     {
-                        //if (pwd == CurrentFolder.parent + command[2])
-                        //{
-                          //  traverseStructure(CurrentFolder);
-                        //}
+                        //go up a level
                         if (command[2] == "..")
                         {
-
                             traverseStructure(CurrentFolder.parent);
-
                         }
                         else
                         {
@@ -142,12 +128,9 @@ namespace AoC_Day_2.src
             do
             {
                 string[] nextLine = RawInput[FileReadIndex++].Split(" ");
-                
                 if (nextLine[0]=="dir")
                 {
-
                     //we need to add a directory to current working directory
-                    //traverse File Structure to current working directory
                     Dictionary<string, FileObject> newFolderContents = new Dictionary<string, FileObject>();
                     FileObject newFolder = new FileObject();
                     newFolder.parent = workingFolder;
@@ -156,10 +139,9 @@ namespace AoC_Day_2.src
                     newFolder.dir = true;
                     workingFolder.contents.TryAdd(nextLine[1], newFolder);
                 }    
-                else if (uint.TryParse(nextLine[0],out uint size))
+                else if (uint.TryParse(nextLine[0],out uint size)) //check if next line is a file
                 {
                     FileObject newFile = new FileObject(CurrentFolder, nextLine[1], size);
-                    
                     workingFolder.contents.TryAdd(nextLine[1], newFile);
                 }
                 else if (nextLine[0]=="$")
@@ -169,14 +151,5 @@ namespace AoC_Day_2.src
             } while (FileReadIndex < RawInput.Length);
             return CurrentFolder;
         }
-       /** public FileObject MoveUp(FileObject CurrentFolder)
-        {
-            string[] breadCrumbs = CurrentFolder.parent.Split("\\");
-            FileObject NewFolder = null;
-            for (int s = 0; s < breadCrumbs.Length - 1; s++)
-                NewFolder = rootFile.contents[breadCrumbs[s + 1]];
-            return NewFolder;
-        }
-        **/
     }
 }
