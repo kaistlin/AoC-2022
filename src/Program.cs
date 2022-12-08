@@ -225,14 +225,14 @@ namespace AoC_Day_2.src
     {
         static void Main(string[] args)
             {
-        //    var summary = BenchmarkRunner.Run<AoCDay6>();
+            var summary = BenchmarkRunner.Run<AoCDay8>();
         //  Console.WriteLine(summary);
         //  AoCDay2 day2 = new AoCDay2();
-            AoCDay7 test = new();
+           // AoCDay8 test = new();
         //    test.caisMethodPart1();
         //  test.caisMethodPart2();
 //            test.part1Alternative();  
-            test.GetStarted();
+           // test.part2();
   /**          test.part1BooleanAddition();
             test.part2();
             test.part2HashSet();

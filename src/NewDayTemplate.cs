@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AoC_Day_2.src
 {
     [MemoryDiagnoser]
-    public class Day
+    public class AoCDay
     {
         string inputPath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day%input.txt";
         string samplePath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day%sample.txt";

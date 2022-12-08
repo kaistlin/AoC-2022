@@ -42,16 +42,17 @@ namespace AoC_Day_2.src
 
         }
         private readonly static string inputPath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day7input.txt";
-        string samplePath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day7sample.txt";
-        string[] RawInput = File.ReadAllLines(inputPath);
+        public string samplePath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day7sample.txt";
+        public string[] RawInput = File.ReadAllLines(inputPath);
         public int FileReadIndex = 1;
         public string pwd = "/";
         public FileObject rootFile = new FileObject(null, "ROOT", new Dictionary<string, FileObject>());
-        SortedSet<uint> sizes = new SortedSet<uint>();
-       
+        public SortedSet<uint> sizes = new SortedSet<uint>();
+
         public void GetStarted()
         {
-            traverseStructure(rootFile);
+        
+        traverseStructure(rootFile);
             addFileSizes(rootFile);
             findFolderToDelete(30000000 - (70000000 - rootFile.size));
         }
