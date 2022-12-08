@@ -84,6 +84,7 @@ namespace AoC_Day_2.src
                     addFileSizes(file);
                 if(currentFile.name!="ROOT")
                     currentFile.parent.size+=currentFile.size; 
+                sizes.Add(currentFile.size);
             }
             //otherwise,base case for recursion is finding a file so add the file size to the parent node size 
             else
