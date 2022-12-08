@@ -228,11 +228,11 @@ namespace AoC_Day_2.src
             var summary = BenchmarkRunner.Run<AoCDay8>();
         //  Console.WriteLine(summary);
         //  AoCDay2 day2 = new AoCDay2();
-           // AoCDay8 test = new();
+  //          AoCDay8 test = new();
         //    test.caisMethodPart1();
         //  test.caisMethodPart2();
 //            test.part1Alternative();  
-           // test.part2();
+            //test.part2Parallel();
   /**          test.part1BooleanAddition();
             test.part2();
             test.part2HashSet();
