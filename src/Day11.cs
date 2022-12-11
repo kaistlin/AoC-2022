@@ -22,7 +22,7 @@ public class AoCDay11
         public int Divisor;
         public int IfTrue;
         public int IfFalse;
-        public List<int> items;
+        public List<ulong> items;
         
       /**  public Monkey(string name, int[] stats)
         {
@@ -32,45 +32,48 @@ public class AoCDay11
         public Monkey() { }**/
     }
     [Benchmark]
-    public void part1(){
-        
+    public void part1()
+    {
+
         string[] line;
-        Monkey[] Barrel = new Monkey[monkeyInput.Length/7+1];
+        Monkey[] Barrel = new Monkey[monkeyInput.Length / 7 + 1];
         //Make-A-Monkey
-        for (int i = 0; i < monkeyInput.Length; i += 7) {
-            Monkey NewMonkey = new ();
-            List<int> MonkeyWrenches = new();
+        for (int i = 0; i < monkeyInput.Length; i += 7)
+        {
+            Monkey NewMonkey = new();
+            List<ulong> MonkeyWrenches = new();
             line = monkeyInput[i + 1].Split(new char[] { ',', ' ' });
             for (int j = 2; j <= line.Length / 2; j++)
             {
-                MonkeyWrenches.Add(int.Parse(line[j * 2]));
+                MonkeyWrenches.Add(ulong.Parse(line[j * 2]));
             }
             line = monkeyInput[i + 2].Split(" ");
             NewMonkey.Operation = char.Parse(line[6]);
-            if (!int.TryParse(line[7], out NewMonkey.Operand)) { NewMonkey.Operation = '^'; }
+            if (!int.TryParse(line[7], out NewMonkey.Operand)) { NewMonkey.Operation = '^'; NewMonkey.Operand = 0; }
             line = monkeyInput[i + 3].Split(" ");
-            NewMonkey.Divisor = int.Parse(line[5]); 
+            NewMonkey.Divisor = int.Parse(line[5]);
             line = monkeyInput[i + 4].Split(" ");
             NewMonkey.IfTrue = int.Parse(line[9]);
             line = monkeyInput[i + 5].Split(" ");
             NewMonkey.IfFalse = int.Parse(line[9]);
             NewMonkey.items = MonkeyWrenches;
-            Barrel[i/7] = NewMonkey;
+            Barrel[i / 7] = NewMonkey;
         }
         for (int Round = 1; Round <= 20; Round++)
         {
-            
-            for (int j=0; j<Barrel.Length;j++)
+
+            for (int j = 0; j < Barrel.Length; j++)
             {
                 Monkey Monkey = Barrel[j];
-                foreach (int item in Monkey.items)
+                foreach (ulong item in Monkey.items)
                 {
                     Monkey.Inspected++;
-                    int newWorry = GetResult(Monkey.Operation, item, Monkey.Operand) / 3;
-                    if (newWorry % Monkey.Divisor == 0)
+                    
+                    ulong newWorry = GetResult(Monkey.Operation, item, Monkey.Operand,1) / 3;
+                    if (newWorry % (ulong)Monkey.Divisor == 0)
                     {
                         Barrel[Monkey.IfTrue].items.Add(newWorry);
-                        
+
                     }
                     else
                     {
@@ -78,30 +81,101 @@ public class AoCDay11
                     }
                 }
                 Monkey.items.Clear();
-    //            Console.WriteLine("This round's moves of monkey" + j + " moves was: " + Monkey.Inspected);
+                //            Console.WriteLine("This round's moves of monkey" + j + " moves was: " + Monkey.Inspected);
             }
         }
         Console.WriteLine(Barrel);
-foreach(Monkey Monkey in Barrel)
+        foreach (Monkey Monkey in Barrel)
         {
-            Console.WriteLine(Monkey.Inspected +" items");
+            Console.WriteLine(Monkey.Inspected + " items");
         }
     }
 
-    private int GetResult(char operation, int item, int operand)
+    private ulong GetResult(char operation, ulong item, int operand, ulong LCM)
     {
         return operation switch
         {
-            '+' => item + operand,
-            '*' => item * operand,
-            '^' => item * item,
+            '+' => (item + (ulong)operand),
+            '*' => (item * (ulong)operand),
+            '^' => (item * item),
             _ => 0
            
         };
     }
-
-    [Benchmark]
-    public void part2(){ 
     
+    [Benchmark]
+    public void part2()
+    {
+
+        string[] line;
+        Monkey[] Barrel = new Monkey[monkeyInput.Length / 7 + 1];
+        //Make-A-Monkey
+        for (int i = 0; i < monkeyInput.Length; i += 7)
+        {
+            Monkey NewMonkey = new();
+            List<ulong> MonkeyWrenches = new();
+            line = monkeyInput[i + 1].Split(new char[] { ',', ' ' });
+            for (int j = 2; j <= line.Length / 2; j++)
+            {
+                MonkeyWrenches.Add(ulong.Parse(line[j * 2]));
+            }
+            line = monkeyInput[i + 2].Split(" ");
+            NewMonkey.Operation = char.Parse(line[6]);
+            if (!int.TryParse(line[7], out NewMonkey.Operand)) { NewMonkey.Operation = '^'; NewMonkey.Operand = 0; }
+            line = monkeyInput[i + 3].Split(" ");
+            NewMonkey.Divisor = int.Parse(line[5]);
+            line = monkeyInput[i + 4].Split(" ");
+            NewMonkey.IfTrue = int.Parse(line[9]);
+            line = monkeyInput[i + 5].Split(" ");
+            NewMonkey.IfFalse = int.Parse(line[9]);
+            NewMonkey.items = MonkeyWrenches;
+            Barrel[i / 7] = NewMonkey;
+        }
+        ulong LCM = 1;//Least Common Divisor
+        for (int i = 0; i < Barrel.Length; i++)
+        {
+            LCM *= (ulong)Barrel[i].Divisor;
+            Console.WriteLine("Least Common Divisor is " + LCM);
+        }
+        
+        for (int Round = 1; Round <= 10000; Round++)
+        {
+
+            for (int j = 0; j < Barrel.Length; j++)
+            {
+                Monkey Monkey = Barrel[j];
+                foreach (ulong item in Monkey.items)
+                {
+                    ulong currentWorry = item % LCM;
+                    if(item==0)
+                    {
+                        Console.WriteLine("Found a 0!!!!");
+                      //  item = 1;
+                    }
+                    Monkey.Inspected++;
+                    ulong newWorry = GetResult(Monkey.Operation, currentWorry, Monkey.Operand,LCM);
+                    if (newWorry % (ulong)Monkey.Divisor == 0)
+                    {
+                        Barrel[Monkey.IfTrue].items.Add(newWorry);
+
+                    }
+                    else
+                    {
+                        Barrel[Monkey.IfFalse].items.Add(newWorry);
+                    }
+                }
+                Monkey.items.Clear();
+                //            Console.WriteLine("This round's moves of monkey" + j + " moves was: " + Monkey.Inspected);
+            }
+            if (Round % 1000 == 0||Round==20 || Round==1)
+            {
+                foreach (Monkey Monkey in Barrel)
+                {
+                    Console.WriteLine("After Round " + Round + " the next monkey has inspected " + Monkey.Inspected + " items");
+                }
+            }
+        }
+        Console.WriteLine(Barrel);
+        
     }
 }

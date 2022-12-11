@@ -225,9 +225,9 @@ class Program
 {
     static void Main(string[] args)
         {
-        var summary = BenchmarkRunner.Run<AoCDay9>();
-       // AoCDay9 test = new();
-        //test.part1();
+      //  var summary = BenchmarkRunner.Run<AoCDay9>();
+        AoCDay11 test = new();
+        test.part2();
 //          test.part2();
        
 
