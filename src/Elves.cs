@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AoC_Day_2.src
+namespace AoC_Day_2.src;
+
+public class Elves
 {
-    public class Elves
-    {
-    }
 }
