@@ -225,10 +225,12 @@ class Program
 {
     static void Main(string[] args)
         {
-      //  var summary = BenchmarkRunner.Run<AoCDay9>();
-        AoCDay11 test = new();
-        test.part2();
-//          test.part2();
+       // var summary = BenchmarkRunner.Run<AoCDay12>();
+      AoCDay13 test = new();
+               test.Part1();
+           //    test.part2();
+           //    test.part2Trim();
+       //        test.Part2GraphHeuristic();
        
 
     }
