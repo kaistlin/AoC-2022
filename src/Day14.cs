@@ -127,6 +127,7 @@ public class AoCDay14
 #if DEBUG
         Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
 #else
+        Console.Write(SandCount);
 #endif
     }
     [Benchmark]
@@ -244,6 +245,7 @@ public class AoCDay14
 #if DEBUG
         Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
 #else
+        Console.Write(SandCount);
 #endif
     }
 }
