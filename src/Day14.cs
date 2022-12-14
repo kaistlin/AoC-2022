@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -127,7 +128,7 @@ public class AoCDay14
 #if DEBUG
         Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
 #else
-        Console.Write(SandCount);
+       // Console.Write(SandCount);
 #endif
     }
     [Benchmark]
@@ -137,13 +138,13 @@ public class AoCDay14
         int Floor = 0;
         foreach (string line in InputLines)
         {
-            string[] Wall = line.Split(new char[] { ' ', '-', ',', '>' }, StringSplitOptions.RemoveEmptyEntries);
+            int[] Wall = line.Split(new char[] { ' ', '-', ',', '>' }, StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
             for (int i = 0; i < Wall.Length - 2; i += 2)
             {
-                int Node1X = int.Parse(Wall[i]);
-                int Node1Y = int.Parse(Wall[i + 1]);
-                int Node2X = int.Parse(Wall[i + 2]);
-                int Node2Y = int.Parse(Wall[i + 3]);
+                int Node1X = (Wall[i]);
+                int Node1Y = (Wall[i + 1]);
+                int Node2X = (Wall[i + 2]);
+                int Node2Y = (Wall[i + 3]);
                 if (Node1X == Node2X)
                 {
 
@@ -198,7 +199,7 @@ public class AoCDay14
                 {
                     Console.WriteLine("Diagonal walls exist!");
                     break;
-                    
+
                 }
             }
         }
@@ -207,7 +208,7 @@ public class AoCDay14
 #else
 #endif
         int SandCount = 0;
-        Floor+=1; //deepest place sand can be
+        Floor += 1; //deepest place sand can be
         int NewSandX = 500;
         int NewSandY = 0;
         do
@@ -241,11 +242,358 @@ public class AoCDay14
                 NewSandX = 500;
                 NewSandY = 0;
             }
-        } while (!Walls.Contains((500,0)));
+        } while (!Walls.Contains((500, 0)));
 #if DEBUG
         Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
+        Debug.Assert(SandCount == 27551);
+
 #else
-        Console.Write(SandCount);
+       // Console.Write(SandCount);
+        
 #endif
     }
+    [Benchmark]
+    public void Part2ArrayOfByteArrays()
+    {
+        int Floor = 172;
+        byte[][] Cave = new byte[Floor][];
+        for (int i = 0; i < Floor; i++)
+        {
+            Cave[i] = new byte[1000];
+        }
+
+        Array.Fill<byte>(Cave[Floor - 1], 35);
+
+        foreach (string line in InputLines)
+        {
+            int[] Wall = line.Split(new char[] { ' ', '-', ',', '>' }, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x)).ToArray();
+            for (int i = 0; i < Wall.Length - 2; i += 2)
+            {
+                int Node1X = (Wall[i]);
+                int Node1Y = (Wall[i + 1]);
+                int Node2X = (Wall[i + 2]);
+                int Node2Y = (Wall[i + 3]);
+                if (Node1X == Node2X)
+                {
+
+                    int Diff = Math.Abs(Node1Y - Node2Y);
+                    if (Node1Y > Node2Y)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node2Y + m][Node1X] = 35;
+                        }
+                    }
+                    else if (Node2Y > Node1Y)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y + m][Node1X] = 35;
+                        }
+                    }
+                }
+                else if (Node1Y == Node2Y)
+                {
+                    int Diff = Math.Abs(Node1X - Node2X);
+                    if (Node1X > Node2X)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y][Node2X + m] = 35;
+                        }
+                    }
+                    else
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y][Node1X + m] = 35;
+                        }
+                    }
+
+                }
+                else if (Wall[i] != Wall[i + 1] && Wall[i + 2] != Wall[i + 3])
+                {
+                    //                  Console.WriteLine("Diagonal walls exist!");
+                    break;
+
+                }
+            }
+        }
+#if DEBUG
+        Console.WriteLine("Walls are added!");
+#else
+#endif
+        int SandCount = 0;
+        int NewSandX = 500;
+        int NewSandY = 0;
+        do
+        {
+
+            if (Cave[NewSandY + 1][NewSandX] == 0)
+            {
+                NewSandY++;
+                continue;
+            }
+            else if (Cave[NewSandY + 1][NewSandX - 1] == 0)
+            {
+                NewSandX--;
+                NewSandY++;
+                continue;
+            }
+            else if (Cave[NewSandY + 1][NewSandX + 1] == 0)
+            {
+                NewSandX++;
+                NewSandY++;
+                continue;
+            }
+            else
+            {
+                SandCount++;
+                Cave[NewSandY][NewSandX] = 111;
+#if DEBUG
+                Console.WriteLine("Piece of sand has come to rest at " + NewSandX + "," + NewSandY);
+#else
+#endif
+                NewSandX = 500;
+                NewSandY = 0;
+            }
+        } while (Cave[0][500] == 0);
+#if DEBUG
+        Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
+        Debug.Assert(SandCount == 27551);
+
+#else
+        //    Console.Write(SandCount);
+
+#endif
+    }
+    [Benchmark]
+    public void Part2ArrayOfBoolArrays()
+    {
+        int Floor = 172;
+        bool[][] Cave = new bool[Floor][];
+        for (int i = 0; i < Floor; i++)
+        {
+            Cave[i] = new bool[1000];
+        }
+
+        Array.Fill<bool>(Cave[Floor - 1], true);
+
+        foreach (string line in InputLines)
+        {
+            int[] Wall = line.Split(new char[] { ' ', '-', ',', '>' }, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x)).ToArray();
+            for (int i = 0; i < Wall.Length - 2; i += 2)
+            {
+                int Node1X = (Wall[i]);
+                int Node1Y = (Wall[i + 1]);
+                int Node2X = (Wall[i + 2]);
+                int Node2Y = (Wall[i + 3]);
+                if (Node1X == Node2X)
+                {
+
+                    int Diff = Math.Abs(Node1Y - Node2Y);
+                    if (Node1Y > Node2Y)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node2Y + m][Node1X] = true;
+                        }
+                    }
+                    else if (Node2Y > Node1Y)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y + m][Node1X] = true;
+                        }
+                    }
+                }
+                else if (Node1Y == Node2Y)
+                {
+                    int Diff = Math.Abs(Node1X - Node2X);
+                    if (Node1X > Node2X)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y][Node2X + m] = true;
+                        }
+                    }
+                    else
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y][Node1X + m] = true;
+                        }
+                    }
+
+                }
+                else if (Wall[i] != Wall[i + 1] && Wall[i + 2] != Wall[i + 3])
+                {
+                    //                  Console.WriteLine("Diagonal walls exist!");
+                    break;
+
+                }
+            }
+        }
+#if DEBUG
+        Console.WriteLine("Walls are added!");
+#else
+#endif
+        int SandCount = 0;
+        int NewSandX = 500;
+        int NewSandY = 0;
+        do
+        {
+
+            if (!Cave[NewSandY + 1][NewSandX])
+            {
+                NewSandY++;
+                continue;
+            }
+            else if (!Cave[NewSandY + 1][NewSandX - 1])
+            {
+                NewSandX--;
+                NewSandY++;
+                continue;
+            }
+            else if (!Cave[NewSandY + 1][NewSandX + 1])
+            {
+                NewSandX++;
+                NewSandY++;
+                continue;
+            }
+            else
+            {
+                SandCount++;
+                Cave[NewSandY][NewSandX] = true;
+#if DEBUG
+                Console.WriteLine("Piece of sand has come to rest at " + NewSandX + "," + NewSandY);
+#else
+#endif
+                NewSandX = 500;
+                NewSandY = 0;
+            }
+        } while (!Cave[0][500]);
+#if DEBUG
+        Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
+        Debug.Assert(SandCount == 27551);
+
+#else
+        //    Console.Write(SandCount);
+
+#endif
+    }
+    [Benchmark]
+    public void Part2ByteArray2D()
+    {
+        int Floor = 172;
+        byte[,] Cave = new byte[Floor, 1000];
+
+        for (int i = 0; i < 1000; i++)
+        {
+            Cave[Floor - 1, i] = 35;
+        }
+        foreach (string line in InputLines)
+        {
+            int[] Wall = line.Split(new char[] { ' ', '-', ',', '>' }, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x)).ToArray();
+            for (int i = 0; i < Wall.Length - 2; i += 2)
+            {
+                int Node1X = (Wall[i]);
+                int Node1Y = (Wall[i + 1]);
+                int Node2X = (Wall[i + 2]);
+                int Node2Y = (Wall[i + 3]);
+                if (Node1X == Node2X)
+                {
+
+                    int Diff = Math.Abs(Node1Y - Node2Y);
+                    if (Node1Y > Node2Y)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node2Y + m, Node1X] = 35;
+                        }
+                    }
+                    else if (Node2Y > Node1Y)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y + m, Node1X] = 35;
+                        }
+                    }
+                }
+                else if (Node1Y == Node2Y)
+                {
+                    int Diff = Math.Abs(Node1X - Node2X);
+                    if (Node1X > Node2X)
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y, Node2X + m] = 35;
+                        }
+                    }
+                    else
+                    {
+                        for (int m = 0; m <= Diff; m++)
+                        {
+                            Cave[Node1Y, Node1X + m] = 35;
+                        }
+                    }
+
+                }
+                else if (Wall[i] != Wall[i + 1] && Wall[i + 2] != Wall[i + 3])
+                {
+                    Console.WriteLine("Diagonal walls exist!");
+                    break;
+
+                }
+            }
+        }
+#if DEBUG
+        Console.WriteLine("Walls are added!");
+#else
+#endif
+        int SandCount = 0;
+        int NewSandX = 500;
+        int NewSandY = 0;
+        do
+        {
+
+            if (Cave[NewSandY + 1, NewSandX] == 0)
+            {
+                NewSandY++;
+                continue;
+            }
+            else if (Cave[NewSandY + 1, NewSandX - 1] == 0)
+            {
+                NewSandX--;
+                NewSandY++;
+                continue;
+            }
+            else if (Cave[NewSandY + 1, NewSandX + 1] == 0)
+            {
+                NewSandX++;
+                NewSandY++;
+                continue;
+            }
+            else
+            {
+                SandCount++;
+                Cave[NewSandY, NewSandX] = 111;
+#if DEBUG
+                Console.WriteLine("Piece of sand has come to rest at " + NewSandX + "," + NewSandY);
+#else
+#endif
+                NewSandX = 500;
+                NewSandY = 0;
+            }
+        } while (Cave[0, 500] == 0);
+#if DEBUG
+        Console.WriteLine("We have reached the abyss after " + SandCount + " pieces of sand!");
+        Debug.Assert(SandCount == 27551);
+
+#else
+    //    Console.Write(SandCount);
+
+#endif
+    }
+    
 }

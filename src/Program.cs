@@ -227,8 +227,9 @@ class Program
         {
 #if DEBUG
         AoCDay14 test = new();
-        test.Part2();
-           //    test.part2();
+        test.Part2ArrayOfByteArrays();
+               test.Part2ByteArray2D();
+        test.Part2ArrayOfBoolArrays();
            //    test.part2Trim();
        //        test.Part2GraphHeuristic();
 #else
