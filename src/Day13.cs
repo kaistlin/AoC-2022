@@ -13,7 +13,7 @@ public class AoCDay13
     public readonly static string InputPath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day13input.txt";
     public readonly static string SamplePath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day13sample.txt";
     string[] InputLines = File.ReadAllLines(SamplePath);
-    [Benchmark]
+   /** [Benchmark]
     public void Part1(){
         int i = 0;
         do
@@ -66,5 +66,5 @@ public class AoCDay13
     [Benchmark]
     public void Part2(){
 
-    }
+    }**/
 }
