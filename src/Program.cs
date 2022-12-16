@@ -226,14 +226,15 @@ class Program
     static void Main(string[] args)
         {
 #if DEBUG
-        AoCDay14 test = new();
-        test.Part2ArrayOfByteArrays();
-               test.Part2ByteArray2D();
-        test.Part2ArrayOfBoolArrays();
+        AoCDay15 test = new();
+        // test.Part2ArrayOfByteArrays();
+        //      test.Part2ByteArray2D();
+        //test.Part2ArrayOfBoolArrays();
+        test.Part2();
            //    test.part2Trim();
        //        test.Part2GraphHeuristic();
 #else
-         var summary = BenchmarkRunner.Run<AoCDay14>();
+         var summary = BenchmarkRunner.Run<AoCDay15>();
 #endif
 
 
