@@ -266,7 +266,7 @@ public class AoCDay15
                         bool Found = false;
                         foreach ((long, long) Sensor in Sensors.Keys)
                         {
-                            if (Math.Abs(Sensor.Item1 - SensorX + i) + Math.Abs(Sensor.Item2 - SensorY+i) <= Sensors[Sensor])
+                            if (Math.Abs(Sensor.Item1 - SensorX + i) + Math.Abs(Sensor.Item2 - SensorY + i) <= Sensors[Sensor])
                             {
                                 Found = false;
                                 break;
@@ -279,7 +279,7 @@ public class AoCDay15
                         }
                         if (Found)
                         {
-                              Console.WriteLine("Found it at " + SensorX + "," + SensorY);
+                            Console.WriteLine("Found it at " + SensorX + "," + SensorY);
                             Console.WriteLine((SensorX * 4000000 + SensorY));
                         }
                     }
@@ -295,7 +295,7 @@ public class AoCDay15
                         bool Found = false;
                         foreach ((long, long) Sensor in Sensors.Keys)
                         {
-                            if (Math.Abs(Sensor.Item1 - node.Item1) + Math.Abs(Sensor.Item2 - node.Item2) <= Sensors[Sensor])
+                            if (Math.Abs(Sensor.Item1 - SensorX + i) + Math.Abs(Sensor.Item2 - SensorY + i) <= Sensors[Sensor])
                             {
                                 Found = false;
                                 break;
@@ -324,7 +324,7 @@ public class AoCDay15
                         bool Found = false;
                         foreach ((long, long) Sensor in Sensors.Keys)
                         {
-                            if (Math.Abs(Sensor.Item1 - node.Item1) + Math.Abs(Sensor.Item2 - node.Item2) <= Sensors[Sensor])
+                            if (Math.Abs(Sensor.Item1 - SensorX + i) + Math.Abs(Sensor.Item2 - SensorY + i) <= Sensors[Sensor])
                             {
                                 Found = false;
                                 break;
@@ -353,7 +353,7 @@ public class AoCDay15
                         bool Found = false;
                         foreach ((long, long) Sensor in Sensors.Keys)
                         {
-                            if (Math.Abs(Sensor.Item1 - node.Item1) + Math.Abs(Sensor.Item2 - node.Item2) <= Sensors[Sensor])
+                            if (Math.Abs(Sensor.Item1 - SensorX + i) + Math.Abs(Sensor.Item2 - SensorY + i) <= Sensors[Sensor])
                             {
                                 Found = false;
                                 break;
@@ -366,8 +366,8 @@ public class AoCDay15
                         }
                         if (Found)
                         {
-                            Console.WriteLine("Found it at " + node.Item1 + "," + node.Item2);
-                            Console.WriteLine((node.Item1 * 4000000 + node.Item2));
+                            Console.WriteLine("Found it at " + SensorX + "," + SensorY);
+                            Console.WriteLine((SensorX * 4000000 + SensorY));
                         }
                     }
                 }
