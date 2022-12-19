@@ -14,7 +14,7 @@ namespace AoC_Day_2.src;
 [MemoryDiagnoser]
 public class AoCDay14
 {
-    public readonly static string InputPath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day14input.txt";
+    public readonly static string InputPath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day14Cai.txt";
     public readonly static string SamplePath = "C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day14sample.txt";
     string[] InputLines = File.ReadAllLines(InputPath);
     byte[] Input = File.ReadAllBytes("C:\\Users\\kaist\\source\\repos\\AoC Day 2\\input\\day14Cai.txt");

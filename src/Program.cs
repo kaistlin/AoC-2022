@@ -226,14 +226,16 @@ class Program
     static void Main(string[] args)
         {
 #if DEBUG
-        AoCDay14 test = new();
+        AoCDay16 test = new();
+        test.Part1();
+      //  test.Part2();
         // test.Part2ArrayOfByteArrays();
-              test.Part2ByteArray2D();
-        test.Part2ArrayOfBoolArrays();
-        test.Part2ArrayOfByteArrays();
+       //       test.Part2ByteArray2D();
+        //test.Part2ArrayOfBoolArrays();
+        //test.Part2ArrayOfByteArrays();
        
-        test.Part2CaiMethod();
-        test.Part2ByteArraysWithStack();
+        //test.Part2CaiMethod();
+        //test.Part2ByteArraysWithStack();
         //    test.part2Trim();
         //        test.Part2GraphHeuristic();
 #else
